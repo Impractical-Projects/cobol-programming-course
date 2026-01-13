@@ -1,0 +1,50 @@
+      *-----------------------
+      * Test Specifications for PAYROL00
+      * Based on observed behavior analysis
+      * Tests basic payroll calculation logic
+      *-----------------------
+            TestSuite 'PAYROL00 - Basic Payroll Calculation'
+
+            TestCase 'Calculate basic gross pay with example values'
+            MOVE 19 TO HOURS
+            MOVE 23 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 437
+
+            TestCase 'Calculate gross pay with zero hours'
+            MOVE 0 TO HOURS
+            MOVE 25 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 0
+
+            TestCase 'Calculate gross pay with single digit hours'
+            MOVE 1 TO HOURS
+            MOVE 50 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 50
+
+            TestCase 'Calculate gross pay for full-time hours'
+            MOVE 40 TO HOURS
+            MOVE 25 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 1000
+
+            TestCase 'Calculate gross pay with maximum 3-digit hours'
+            MOVE 100 TO HOURS
+            MOVE 50 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 5000
+
+            TestCase 'Verify hours field is zero-filled on left'
+            MOVE 5 TO HOURS
+            EXPECT HOURS TO BE 005
+
+            TestCase 'Verify rate field is zero-filled on left'
+            MOVE 7 TO RATE
+            EXPECT RATE TO BE 007
+
+            TestCase 'Verify gross pay is zero-filled on left'
+            MOVE 1 TO HOURS
+            MOVE 1 TO RATE
+            COMPUTE GROSS-PAY = HOURS * RATE
+            EXPECT GROSS-PAY TO BE 00001

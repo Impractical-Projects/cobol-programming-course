@@ -1,0 +1,83 @@
+      *-----------------------
+      * Extended Test Specifications for EMPPAY
+      * These tests expose the overtime logic bug
+      * Based on detailed behavior analysis
+      *-----------------------
+            TestSuite 'EMPPAY - Overtime Logic Bug Detection'
+
+            TestCase 'Standard hours - no overtime'
+            MOVE 30 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0
+            EXPECT EMP-PAY-WEEK TO BE 600.00
+
+            TestCase 'Exactly 40 hours - should apply 25% OT'
+            MOVE 40 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            EXPECT EMP-PAY-WEEK TO BE 1000.00
+
+            TestCase '45 hours - should apply 25% OT'
+            MOVE 45 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            EXPECT EMP-PAY-WEEK TO BE 1125.00
+
+            TestCase 'Exactly 50 hours - BUG: applies 25% instead of 50%'
+            MOVE 50 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            NOTE: This exposes the bug - should be 0.50
+            NOTE: Expected correct value would be 1500.00
+            EXPECT EMP-PAY-WEEK TO BE 1250.00
+
+            TestCase '60 hours - BUG: applies 25% instead of 50%'
+            MOVE 60 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            NOTE: This exposes the bug - should be 0.50
+            EXPECT EMP-PAY-WEEK TO BE 1500.00
+
+            TestCase '100 hours - BUG: applies 25% instead of 50%'
+            MOVE 100 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            NOTE: This exposes the bug - should be 0.50
+            EXPECT EMP-PAY-WEEK TO BE 2500.00
+
+            TestCase 'Monthly calculation - no reward at 150 hours'
+            MOVE 150 TO EMP-HOURS
+            MOVE 1000.00 TO EMP-PAY-WEEK
+            PERFORM PAYMENT-MONTHLY
+            EXPECT EMP-REWARD TO BE 0
+            EXPECT EMP-PAY-MONTH TO BE 4000.00
+
+            TestCase 'Monthly calculation - reward at 151 hours'
+            MOVE 151 TO EMP-HOURS
+            MOVE 1000.00 TO EMP-PAY-WEEK
+            PERFORM PAYMENT-MONTHLY
+            EXPECT EMP-REWARD TO BE 0.50
+            EXPECT EMP-PAY-MONTH TO BE 6000.00
+
+            TestCase 'Monthly calculation - reward at 200 hours'
+            MOVE 200 TO EMP-HOURS
+            MOVE 1500.00 TO EMP-PAY-WEEK
+            PERFORM PAYMENT-MONTHLY
+            EXPECT EMP-REWARD TO BE 0.50
+            EXPECT EMP-PAY-MONTH TO BE 9000.00
+
+            TestCase 'Integrated test - 160 hours with both OT and reward'
+            MOVE 160 TO EMP-HOURS
+            MOVE 20.00 TO EMP-HOURLY-RATE
+            PERFORM PAYMENT-WEEKLY
+            EXPECT EMP-OT-RATE TO BE 0.25
+            EXPECT EMP-PAY-WEEK TO BE 4000.00
+            PERFORM PAYMENT-MONTHLY
+            EXPECT EMP-REWARD TO BE 0.50
+            EXPECT EMP-PAY-MONTH TO BE 24000.00
