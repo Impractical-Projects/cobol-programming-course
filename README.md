@@ -15,6 +15,26 @@ This project is a set of training materials and labs for COBOL on z/OS. The foll
 
 An interactive environment for completing the course is available at [ibm.biz/cobollabs](https://ibm.biz/cobollabs). If you are a learner looking to take the course, please navigate to this link and select the Open Mainframe Project COBOL Programming Course.
 
+## Documentation
+
+### Course Documentation
+- [Getting Started Guide](COBOL%20Programming%20Course%20%231%20-%20Getting%20Started/README.md)
+- [Learning COBOL Guide](COBOL%20Programming%20Course%20%232%20-%20Learning%20COBOL/README.md)
+- [Advanced Topics Guide](COBOL%20Programming%20Course%20%233%20-%20Advanced%20Topics/README.md)
+- [Testing Guide](COBOL%20Programming%20Course%20%234%20-%20Testing/README.md)
+
+### Technical Documentation
+- [Codebase Documentation](CODEBASE_DOCUMENTATION.md) - System overview and program inventory
+- [Architecture Diagrams](ARCHITECTURE_DIAGRAMS.md) - Visual system architecture and data flows
+- [Execution Paths](EXECUTION_PATHS.md) - Detailed program execution patterns
+- [Quick Reference](QUICK_REFERENCE.md) - Quick lookup guide for common tasks
+
+### Test Specifications & Quality Analysis
+- [**Executable Specifications Summary**](EXECUTABLE_SPECIFICATIONS_SUMMARY.md) - Start here for test specifications overview
+- [Test Specifications](TEST_SPECIFICATIONS.md) - 45 executable test cases covering major programs
+- [Behavioral Inconsistencies](BEHAVIORAL_INCONSISTENCIES.md) - Bug analysis and pattern inconsistencies
+- [Interface Boundaries](INTERFACE_BOUNDARIES.md) - Data contracts and interface documentation
+
 ## Discussion
 
 You can connect with the community in a variety of ways...
